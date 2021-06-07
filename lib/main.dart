@@ -9,8 +9,6 @@ void main() {
 }
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -70,13 +68,18 @@ class _HomeState extends State<Home> {
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(10),
+        child: Form(
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Icon(Icons.person_outlined, size: 120.0, color: Colors.green),
-              TextField(
+              TextFormField(
+                validator: (value) {
+                  if (value == "") {
+                    return "Insira seu Peso!";
+                  }
+                },
                 controller: pesoController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -86,7 +89,12 @@ class _HomeState extends State<Home> {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.green, fontSize: 25.0),
               ),
-              TextField(
+              TextFormField(
+                validator: (value) {
+                  if (value == "") {
+                    return "Insira a Altura!";
+                  }
+                },
                 controller: alturaController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -107,7 +115,11 @@ class _HomeState extends State<Home> {
                       style: TextStyle(color: Colors.white, fontSize: 25.0),
                     ),
                     color: Colors.green,
-                    onPressed: calcular,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        calcular();
+                      }
+                    },
                   ),
                 ),
               ),
