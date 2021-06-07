@@ -22,10 +22,12 @@ class _HomeState extends State<Home> {
   String _info = "Informe seus Dados!";
 
   void reset() {
+    pesoController.text = "";
+    alturaController.text = "";
+
     setState(() {
-      pesoController.text = "";
-      alturaController.text = "";
       _info = "Informe seus Dados!";
+      _formKey = GlobalKey<FormState>();
     });
   }
 
